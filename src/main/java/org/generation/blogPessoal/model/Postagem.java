@@ -15,6 +15,14 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Classe Entidade para o Banco de dados com intuito de criar 
+ * uma tabela Postagem com os atributos: titulo, texto e date
+ * 
+ * @author fabriciorocha
+ * @since 1.0
+ */
+
 @Entity
 @Table(name = "postagem")
 public class Postagem {

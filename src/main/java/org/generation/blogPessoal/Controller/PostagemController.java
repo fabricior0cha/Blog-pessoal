@@ -19,6 +19,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controlador responsável pela tabela Postagem Com os métodos HTTP necessários
+ * 
+ * @author fabriciorocha
+ * @since 1.0
+ * 
+ */
+
 @RestController
 @RequestMapping("/postagens")
 @CrossOrigin("*")
@@ -26,33 +34,69 @@ public class PostagemController {
 
 	@Autowired
 	private PostagemRepository repository;
-
+	
+	/**
+	 *  Método GET responsável por retornar uma lista com todas postagens
+	 * @return ResponseEntity<List<Postagem>>
+	 */
 	@GetMapping
 	public ResponseEntity<List<Postagem>> GetAll() {
 		return ResponseEntity.ok(repository.findAll());
 	}
-
+	
+	/**
+	 *  Método GET responsável por retornar uma postagem tendo
+	 *  o id como parametro
+	 *  
+	 * @param id
+	 * @return ResponseEntity<Postagem>
+	 * 
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> GetById(@PathVariable long id) {
-		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
-
+		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
+									.orElse(ResponseEntity.notFound().build());
 	}
-
+	
+	/**
+	 * Método GET responsável por retornar uma lista de postagens 
+	 * que contenha o parametro titulo
+	 * 
+	 * @param titulo
+	 * @return ResponseEntity<List<Postagem>>
+	 * 
+	 */
 	@GetMapping("/titulo/{titulo}")
 	public ResponseEntity<List<Postagem>> GetByTitulo(@PathVariable String titulo) {
 		return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
 	}
-
+	
+	/**
+	 * Método POST para salvar uma postagem
+	 * 
+	 * @param postagem
+	 * @return ResponseEntity<Postagem>
+	 */
 	@PostMapping
 	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(postagem));
 	}
-
+	/**
+	 * Método PUT para alterar uma postagem
+	 * 
+	 * @param postagem
+	 * @return ResponseEntity<Postagem>
+	 */
 	@PutMapping
 	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem) {
 		return ResponseEntity.status(HttpStatus.OK).body(repository.save(postagem));
 	}
-
+	
+	/**
+	 * Método DELETE para remover uma postagem
+	 * 
+	 * @param id
+	 */
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable long id) {
 		repository.deleteById(id);
