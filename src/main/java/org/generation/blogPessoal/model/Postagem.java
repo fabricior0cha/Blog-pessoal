@@ -16,15 +16,15 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * Classe Entidade para o Banco de dados com intuito de criar 
- * uma tabela Postagem com os atributos: titulo, texto e date
+ * Classe Entidade para o Banco de dados com intuito de criar uma tabela
+ * Postagem com os atributos: titulo, texto e date
  * 
  * @author fabriciorocha
  * @since 1.0
  */
 
 @Entity
-@Table(name = "postagem")
+@Table(name = "tb_postagem")
 public class Postagem {
 
 	@Id
@@ -41,7 +41,7 @@ public class Postagem {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date = new java.sql.Date(System.currentTimeMillis());
-	
+
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
@@ -77,7 +77,7 @@ public class Postagem {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 	public Tema getTema() {
 		return tema;
 	}

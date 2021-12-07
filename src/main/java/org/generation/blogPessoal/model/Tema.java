@@ -14,14 +14,13 @@ import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * Classe Entidade para o Banco de dados com intuito de criar 
- * uma tabela Tema com os atributos: descricao
+ * Classe Entidade para o Banco de dados com intuito de criar uma tabela Tema
+ * com os atributos: descricao
  * 
  * @author fabriciorocha
  * @since 1.0
  *
  */
-
 
 @Entity
 @Table(name = "tb_tema")
