@@ -1,4 +1,4 @@
-package org.generation.blogPessoal.Controller;
+package org.generation.blogPessoal.controller;
 
 import java.util.List;
 
