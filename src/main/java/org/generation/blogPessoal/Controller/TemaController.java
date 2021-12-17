@@ -50,19 +50,22 @@ public class TemaController {
 		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(nome));
 	}
 
-	@PostMapping
+	@PostMapping ("/salvar")
 	public ResponseEntity<Tema> post(@Valid @RequestBody Tema tema) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(tema));
 	}
 
-	@PutMapping
+	@PutMapping ("/alterar")
 	public ResponseEntity<Tema> put(@Valid @RequestBody Tema tema) {
 		return ResponseEntity.ok(repository.save(tema));
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id) {
-		repository.deleteById(id);
+	public ResponseEntity<?> delete(@PathVariable long id) {
+		return repository.findById(id).map(resp -> {
+			repository.deleteById(id);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 
 }
