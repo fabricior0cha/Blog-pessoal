@@ -14,17 +14,23 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
 
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 
-	private @NotBlank @Size(min = 2, max = 100) String nome;
-
-	private @NotBlank @Size(min = 5, max = 100) String usuario;
-
-	private @NotBlank @Size(min = 5, max = 100) String senha;
+	@NotBlank(message = "Nome não pode ser nulo")
+	private  @Size(min = 2, max = 100) String nome;
+	
+	@Schema(example = "email@email.com")
+	@NotBlank(message = "Usuario não pode ser nulo")
+	private  @Size(min = 5, max = 100) String usuario;
+	
+	@NotBlank(message = "Senha não pode ser nula!")
+	private  @Size(min = 5, max = 100) String senha;
 	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("usuario")
