@@ -30,9 +30,9 @@ public class Usuario {
 	private  @Size(min = 5, max = 100) String usuario;
 	
 	@NotBlank(message = "Senha não pode ser nula!")
-	private  @Size(min = 5, max = 100) String senha;
+	private  @Size(min = 8, message = "A senha deve possuir mais de 8 caracteres!") String senha;
 	
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
 
@@ -47,6 +47,8 @@ public class Usuario {
 	
 
 	public Usuario() { }
+
+
 
 
 	public Long getId() {
@@ -79,6 +81,15 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public List<Postagem> getPostagem() {
+		return postagem;
+	}
+
+
+	public void setPostagem(List<Postagem> postagem) {
+		this.postagem = postagem;
 	}
 
 }

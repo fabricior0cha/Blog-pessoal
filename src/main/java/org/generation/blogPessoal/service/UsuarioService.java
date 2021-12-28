@@ -41,20 +41,23 @@ public class UsuarioService {
 				usuario.setSenha(criptografarSenha(usuario.getSenha()));
 				return repository.save(usuario);
 			} else {
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário não encontrado");
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado");
 			}
 	}
 	
-	public Optional<UsuarioLogin> logar (Optional<UsuarioLogin> user) {
+	public Optional<UsuarioLogin> logar (Optional<UsuarioLogin> usuarioLogin) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		Optional<Usuario> usuario = repository.findByUsuario(user.get().getUsuario());
+		Optional<Usuario> usuario = repository.findByUsuario(usuarioLogin.get().getUsuario());
 
 		if (usuario.isPresent()) {
-			if (encoder.matches(user.get().getSenha(), usuario.get().getSenha())) {
-				user.get().setToken(gerarTokenBasic64(user.get().getUsuario(), user.get().getSenha()));
-				user.get().setNome(usuario.get().getNome());
+			if (encoder.matches(usuarioLogin.get().getSenha(), usuario.get().getSenha())) {
+				usuarioLogin.get().setId(usuario.get().getId());
+				usuarioLogin.get().setNome(usuario.get().getNome());
+				usuarioLogin.get().setUsuario(usuario.get().getUsuario());
+				usuarioLogin.get().setSenha(usuario.get().getSenha());
+				usuarioLogin.get().setToken(gerarTokenBasic64(usuarioLogin.get().getUsuario(), usuarioLogin.get().getSenha()));
 
-				return user;
+				return usuarioLogin;
 			}
 		}
 		throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário não cadastrado");
