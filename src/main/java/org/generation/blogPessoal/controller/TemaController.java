@@ -53,7 +53,7 @@ public class TemaController {
 		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(nome));
 	}
 
-	@PostMapping ("/salvar")
+	@PostMapping 
 	public ResponseEntity<Tema> post(@Valid @RequestBody Tema tema) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(tema));
 	}
