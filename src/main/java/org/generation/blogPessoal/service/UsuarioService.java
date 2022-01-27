@@ -53,8 +53,6 @@ public class UsuarioService {
 			if (encoder.matches(usuarioLogin.get().getSenha(), usuario.get().getSenha())) {
 				usuarioLogin.get().setId(usuario.get().getId());
 				usuarioLogin.get().setNome(usuario.get().getNome());
-				usuarioLogin.get().setUsuario(usuario.get().getUsuario());
-				usuarioLogin.get().setSenha(usuario.get().getSenha());
 				usuarioLogin.get().setToken(gerarTokenBasic64(usuarioLogin.get().getUsuario(), usuarioLogin.get().getSenha()));
 				usuarioLogin.get().setFoto(usuario.get().getFoto());
 				usuarioLogin.get().setTipo(usuario.get().getTipo());
